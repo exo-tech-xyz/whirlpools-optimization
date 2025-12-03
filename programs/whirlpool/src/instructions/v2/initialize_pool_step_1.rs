@@ -161,7 +161,7 @@ pub fn handler(
     let whirlpools_config_data = ctx.accounts.whirlpools_config.data.borrow();
 
     // check discriminator
-    let expected_disc: [u8; 8] = [157, 20, 49, 224, 217, 87, 193, 254];
+    let expected_disc = WhirlpoolsConfig::DISCRIMINATOR;
     let received_disc: [u8; 8] = whirlpools_config_data[0..8].try_into().unwrap();
     if expected_disc != received_disc {
         return Err(ErrorCode::AccountDiscriminatorMismatch.into());

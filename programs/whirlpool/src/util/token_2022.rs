@@ -1,6 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::associated_token::{self, AssociatedToken};
 use anchor_spl::token::spl_token;
+use anchor_spl::token::TokenAccount as SplTokenAccount;
 use anchor_spl::token_2022::spl_token_2022::extension::{
     BaseStateWithExtensions, StateWithExtensions,
 };
@@ -560,7 +561,7 @@ pub fn initialize_vault_token_account_optimized<'info>(
     // The size required for extensions that are mandatory on the TokenAccount side — based on the TokenExtensions enabled on the Mint —
     // is automatically accounted for. For non-mandatory extensions, however, they must be explicitly added,
     // so we specify ImmutableOwner explicitly.
-    let mut space = 165;
+    let mut space = SplTokenAccount::LEN as u64;
 
     if is_token_2022 {
         space = get_account_data_size(
